@@ -1,4 +1,4 @@
-AKAZA BOT 👹🔥
+#AKAZA BOT 👹🔥
 ¡Tu mejor aliado para una comunidad épica!
 ¡Bienvenido al repositorio de Akaza Bot! ¿Cansado de grupos aburridos y desorganizados? Akaza es la solución definitiva. No es solo un bot; es la herramienta multifuncional que equilibra a la perfección el control absoluto con la diversión ilimitada, transformando cualquier chat en una comunidad vibrante, segura y profesional.
 
