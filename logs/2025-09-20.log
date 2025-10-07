@@ -1,0 +1,306 @@
+[2025-09-20T19:08:41.890Z] [IN] 593962647512@s.whatsapp.net: !ayuda 
+[2025-09-20T19:08:41.890Z] [CMD] COMMAND: ayuda ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T19:08:42.413Z] [IN] 593962647512@s.whatsapp.net: 🤖 *AKAZA BOT - SISTEMA DE AYUDA*
+
+⚠️ *No estás registrado*
+Usa `!registrar` para acceder a todas las funciones
+
+📊 *Estadísticas del Bot*
+• Usuarios registrados: 1
+• Comandos disponibles: 14
+• Prefijo: `!`
+
+📂 *REGISTRO*
+• `!perfil` (miinfo, yo) 🌟
+  Muestra tu perfil. Admins pueden ver otros perfiles.
+• `!registrar` (registro, signup) 🌟
+  Flujo premium con diseño bonito y logs optimizados (solo privado)
+
+📂 *DESCARGAS*
+• `!play` (p, musica, música) 🌟
+  Descargar audio de YouTube por nombre o URL
+• `!tiktok` (tt, tik, tok)
+  Descargar videos de TikTok sin marca de agua
+
+📂 *ADMINISTRACIÓN*
+• `!hidetag` (tag, notificar, ht, todos) 👑
+  Mencionar a todos los miembros del grupo sin mostrar la lista
+• `!kick` (expulsar, ban, sacar, remove) 👑
+  Expulsar a un usuario del grupo
+
+📂 *HERRAMIENTAS*
+• `!google` (buscar, search, g)
+  Buscar información en Google
+• `!ia` (gemini, ai, gpt)
+  Conversar con Google Gemini AI (versión oficial)
+
+📂 *CONFIGURACIÓN*
+• `!config` (configurar, setting, ajuste) 👑
+  Configurar protecciones y ajustes del grupo
+
+📂 *INFORMACIÓN*
+• `!ayuda` (help, menu, comandos) 🌟
+  Mostrar lista de comandos disponibles
+
+📂 *OTROS*
+• `!addadmin` (newadmin)
+  Agregar admin (owner only). Uso: !addadmin 593xxxx
+• `!borrar` (delete, elim) 👑 🌟
+  Eliminar registro de usuario (admin/owner only)
+• `!editar` (edit) 👑 🌟
+  Editar perfil de usuario (admin/owner puede editar otros) en privado o grupo
+• `!sticker` (s, stiker, stick)
+  Crear sticker desde imagen o video
+
+📖 *Leyenda:*
+👑 Solo administradores
+🌟 No requiere registro
+
+💡 *Consejos:*
+• Para ver detalles de un comando: `!ayuda nombrecomando`
+• Algunos comandos tienen alias (nombres alternativos)
+• Regístrate para acceder a más funciones
+
+⏰ 20/9/2025, 19:08:41 
+[2025-09-20T19:08:42.896Z] [ERR] ERROR: SQLite3 can only bind numbers, strings, bigints, buffers, and null 
+[2025-09-20T19:08:42.897Z] [IN] 593962647512@s.whatsapp.net: ❌ Error al mostrar la ayuda: SQLite3 can only bind numbers, strings, bigints, buffers, and null 
+[2025-09-20T19:08:58.396Z] [IN] 593962647512@s.whatsapp.net: !registrar 
+[2025-09-20T19:08:58.396Z] [CMD] COMMAND: registrar ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T19:08:58.398Z] [ERR] ERROR: Cannot use 'in' operator to search for 'text' in 🚀 Iniciando flujo de registro. Usa *!cancelar* en cualquier momento. 
+[2025-09-20T19:09:19.100Z] [IN] 593962647512@s.whatsapp.net: !perfil 
+[2025-09-20T19:09:19.735Z] [IN] 593962647512@s.whatsapp.net: 🌟 ━━━━━ ✦ ━━━━━ 🌟
+🎂 Dime tu *edad* (13–120)
+🌟 ━━━━━ ✦ ━━━━━ 🌟
+ 
+[2025-09-20T19:46:34.449Z] [IN] 593962647512@s.whatsapp.net: Hola 
+[2025-09-20T19:46:41.750Z] [IN] 593962647512@s.whatsapp.net: !ayuda 
+[2025-09-20T19:46:41.751Z] [CMD] COMMAND: ayuda ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T19:46:41.871Z] [ERR] ERROR: SQLite3 can only bind numbers, strings, bigints, buffers, and null 
+[2025-09-20T19:46:41.872Z] [IN] 593962647512@s.whatsapp.net: 🤖 *AKAZA BOT - SISTEMA DE AYUDA*
+
+⚠️ *No estás registrado*
+Usa `!registrar` para acceder a todas las funciones
+
+📊 *Estadísticas del Bot*
+• Usuarios registrados: 1
+• Comandos disponibles: 14
+• Prefijo: `!`
+
+📂 *REGISTRO*
+• `!perfil` (miinfo, yo) 🌟
+  Muestra tu perfil. Admins pueden ver otros perfiles.
+• `!registrar` (registro, signup) 🌟
+  Flujo premium con diseño bonito y logs optimizados (solo privado)
+
+📂 *DESCARGAS*
+• `!play` (p, musica, música) 🌟
+  Descargar audio de YouTube por nombre o URL
+• `!tiktok` (tt, tik, tok)
+  Descargar videos de TikTok sin marca de agua
+
+📂 *ADMINISTRACIÓN*
+• `!addadmin` (newadmin)
+  Agregar admin (owner only). Uso: !addadmin 593xxxx
+• `!borrar` (delete, elim) 👑 🌟
+  Eliminar registro de usuario (admin/owner only)
+• `!editar` (edit) 👑 🌟
+  Editar perfil de usuario (admin/owner puede editar otros) en privado o grupo
+• `!hidetag` (tag, notificar, ht, todos) 👑
+  Mencionar a todos los miembros del grupo sin mostrar la lista
+• `!kick` (expulsar, ban, sacar, remove) 👑
+  Expulsar a un usuario del grupo
+
+📂 *HERRAMIENTAS*
+• `!google` (buscar, search, g)
+  Buscar información en Google
+• `!ia` (gemini, ai, gpt)
+  Conversar con Google Gemini AI (versión oficial)
+• `!sticker` (s, stiker, stick)
+  Crear sticker desde imagen o video
+
+📂 *CONFIGURACIÓN*
+• `!config` (configurar, setting, ajuste) 👑
+  Configurar protecciones y ajustes del grupo
+
+📂 *INFORMACIÓN*
+• `!ayuda` (help, menu, comandos) 🌟
+  Mostrar lista de comandos disponibles
+
+📖 *Leyenda:*
+👑 Solo administradores
+🌟 No requiere registro
+
+💡 *Consejos:*
+• Para ver detalles de un comando: `!ayuda nombrecomando`
+• Algunos comandos tienen alias (nombres alternativos)
+• Regístrate para acceder a más funciones
+
+⏰ 20/9/2025, 2:46:41 p. m. 
+[2025-09-20T19:47:15.399Z] [IN] 593962647512@s.whatsapp.net: !yo 
+[2025-09-20T19:47:15.400Z] [CMD] COMMAND: yo ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T19:47:15.492Z] [ERR] ERROR: SQLite3 can only bind numbers, strings, bigints, buffers, and null 
+[2025-09-20T19:47:15.492Z] [IN] 593962647512@s.whatsapp.net: 🔐 Aún no estás registrado.
+Para crear tu perfil, usa *!registrar* 🚀 
+[2025-09-20T19:47:55.815Z] [IN] 593964173986@s.whatsapp.net:  
+[2025-09-20T19:47:56.315Z] [IN] 120363403615613538@g.us: !ayuda 
+[2025-09-20T19:47:56.317Z] [CMD] COMMAND: ayuda ejecutado por 120363403615613538@g.us 
+[2025-09-20T19:47:57.041Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T19:47:57.041Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T19:48:03.037Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T19:48:04.133Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T19:59:06.816Z] [IN] 593962647512@s.whatsapp.net: !ayuda 
+[2025-09-20T19:59:06.817Z] [CMD] COMMAND: ayuda ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T19:59:07.401Z] [IN] 593962647512@s.whatsapp.net: 🤖 *AKAZA BOT - SISTEMA DE AYUDA*
+
+⚠️ *No estás registrado*
+Usa `!registrar` para acceder a todas las funciones
+
+📊 *Estadísticas del Bot*
+• Usuarios registrados: 1
+• Comandos disponibles: 14
+• Prefijo: `!`
+
+📂 *REGISTRO*
+• `!perfil` (miinfo, yo) 🌟
+  Muestra tu perfil. Admins pueden ver otros perfiles.
+• `!registrar` (registro, signup) 🌟
+  Flujo premium con diseño bonito y logs optimizados (solo privado)
+
+📂 *DESCARGAS*
+• `!play` (p, musica, música) 🌟
+  Descargar audio de YouTube por nombre o URL
+• `!tiktok` (tt, tik, tok)
+  Descargar videos de TikTok sin marca de agua
+
+📂 *ADMINISTRACIÓN*
+• `!addadmin` (newadmin)
+  Agregar admin (owner only). Uso: !addadmin 593xxxx
+• `!borrar` (delete, elim) 👑 🌟
+  Eliminar registro de usuario (admin/owner only)
+• `!editar` (edit) 👑 🌟
+  Editar perfil de usuario (admin/owner puede editar otros) en privado o grupo
+• `!hidetag` (tag, notificar, ht, todos) 👑
+  Mencionar a todos los miembros del grupo sin mostrar la lista
+• `!kick` (expulsar, ban, sacar, remove) 👑
+  Expulsar a un usuario del grupo
+
+📂 *HERRAMIENTAS*
+• `!google` (buscar, search, g)
+  Buscar información en Google
+• `!ia` (gemini, ai, gpt)
+  Conversar con Google Gemini AI (versión oficial)
+• `!sticker` (s, stiker, stick)
+  Crear sticker desde imagen o video
+
+📂 *CONFIGURACIÓN*
+• `!config` (configurar, setting, ajuste) 👑
+  Configurar protecciones y ajustes del grupo
+
+📂 *INFORMACIÓN*
+• `!ayuda` (help, menu, comandos) 🌟
+  Mostrar lista de comandos disponibles
+
+📖 *Leyenda:*
+👑 Solo administradores
+🌟 No requiere registro
+
+💡 *Consejos:*
+• Para ver detalles de un comando: `!ayuda nombrecomando`
+
+⏰ 20/9/2025, 2:59:06 p. m. 
+[2025-09-20T20:04:32.439Z] [IN] 593962647512@s.whatsapp.net: !perfil 
+[2025-09-20T20:04:32.439Z] [CMD] COMMAND: perfil ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T20:04:33.172Z] [IN] 593962647512@s.whatsapp.net: 🔐 Aún no estás registrado.
+Para crear tu perfil, usa *!registrar* 🚀 
+[2025-09-20T20:04:59.977Z] [IN] 593964173986@s.whatsapp.net:  
+[2025-09-20T20:05:00.354Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T20:05:00.355Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T20:05:00.477Z] [IN] : !ayuda 
+[2025-09-20T20:05:00.478Z] [CMD] COMMAND: ayuda ejecutado por  
+[2025-09-20T20:05:07.535Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T20:05:09.526Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T20:18:07.600Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T20:18:07.602Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T20:18:12.258Z] [ERR] ERROR: No sessions 
+[2025-09-20T20:18:28.513Z] [IN] 200682883801307@lid: !perfil 
+[2025-09-20T20:18:28.514Z] [CMD] COMMAND: perfil ejecutado por 200682883801307@lid 
+[2025-09-20T20:18:34.546Z] [ERR] ERROR: No sessions 
+[2025-09-20T20:21:25.778Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T20:21:25.779Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T20:21:35.852Z] [ERR] ERROR: No sessions 
+[2025-09-20T20:31:24.885Z] [IN] 593962647512@s.whatsapp.net: !ayuda 
+[2025-09-20T20:31:24.885Z] [CMD] COMMAND: ayuda ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T20:31:25.405Z] [IN] 593962647512@s.whatsapp.net: 🤖 *AKAZA BOT - SISTEMA DE AYUDA*
+
+⚠️ *No estás registrado*
+Usa `!registrar` para acceder a todas las funciones
+
+📊 *Estadísticas del Bot*
+• Usuarios registrados: 1
+• Comandos disponibles: 14
+• Prefijo: `!`
+
+📂 *REGISTRO*
+• `!perfil` (miinfo, yo) 🌟
+  Muestra tu perfil. Admins pueden ver otros perfiles.
+• `!registrar` (registro, signup) 🌟
+  Flujo premium con diseño bonito y logs optimizados (solo privado)
+
+📂 *DESCARGAS*
+• `!play` (p, musica, música) 🌟
+  Descargar audio de YouTube por nombre o URL
+• `!tiktok` (tt, tik, tok)
+  Descargar videos de TikTok sin marca de agua
+
+📂 *ADMINISTRACIÓN*
+• `!addadmin` (newadmin)
+  Agregar admin (owner only). Uso: !addadmin 593xxxx
+• `!borrar` (delete, elim) 👑 🌟
+  Eliminar registro de usuario (admin/owner only)
+• `!editar` (edit) 👑 🌟
+  Editar perfil de usuario (admin/owner puede editar otros) en privado o grupo
+• `!hidetag` (tag, notificar, ht, todos) 👑
+  Mencionar a todos los miembros del grupo sin mostrar la lista
+• `!kick` (expulsar, ban, sacar, remove) 👑
+  Expulsar a un usuario del grupo
+
+📂 *HERRAMIENTAS*
+• `!google` (buscar, search, g)
+  Buscar información en Google
+• `!ia` (gemini, ai, gpt)
+  Conversar con Google Gemini AI (versión oficial)
+• `!sticker` (s, stiker, stick)
+  Crear sticker desde imagen o video
+
+📂 *CONFIGURACIÓN*
+• `!config` (configurar, setting, ajuste) 👑
+  Configurar protecciones y ajustes del grupo
+
+📂 *INFORMACIÓN*
+• `!ayuda` (help, menu, comandos) 🌟
+  Mostrar lista de comandos disponibles
+
+📖 *Leyenda:*
+👑 Solo administradores
+🌟 No requiere registro
+
+💡 *Consejos:*
+• Para ver detalles de un comando: `!ayuda nombrecomando`
+
+⏰ 20/9/2025, 3:31:24 p. m. 
+[2025-09-20T20:32:14.425Z] [IN] 593964173986@s.whatsapp.net:  
+[2025-09-20T20:32:14.926Z] [IN] : !ayuda 
+[2025-09-20T20:32:14.928Z] [CMD] COMMAND: ayuda ejecutado por  
+[2025-09-20T20:32:15.782Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T20:32:15.783Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T20:32:21.037Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T20:32:24.024Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T21:39:00.736Z] [IN] 593962647512@s.whatsapp.net: !ayuda 
+[2025-09-20T21:39:00.736Z] [CMD] COMMAND: ayuda ejecutado por 593962647512@s.whatsapp.net 
+[2025-09-20T21:39:29.848Z] [IN] 80780399239247@lid: Jjj 
+[2025-09-20T21:39:38.961Z] [IN] : !ayuda 
+[2025-09-20T21:39:38.962Z] [CMD] COMMAND: ayuda ejecutado por  
+[2025-09-20T21:39:42.393Z] [IN] 200682883801307@lid: !ayuda 
+[2025-09-20T21:39:42.394Z] [CMD] COMMAND: ayuda ejecutado por 200682883801307@lid 
+[2025-09-20T21:39:44.418Z] [ERR] ERROR: not-acceptable 
+[2025-09-20T21:39:48.523Z] [ERR] ERROR: No sessions 
