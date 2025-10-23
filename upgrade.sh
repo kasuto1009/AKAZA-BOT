@@ -36,31 +36,37 @@ git config user.name "$GIT_USER_NAME"
 git config core.autocrlf input
 echo "   ✔️ Identidad configurada para este repositorio."
 
-# 4. INTENTAR TRAER CAMBIOS REMOTOS PRIMERO (git pull)
-echo "🔄 Intentando traer cambios remotos (git pull)..."
-# Usamos --ff-only para evitar merges automáticos complicados si hay conflictos locales no commiteados
-# Usamos || true para continuar si el pull falla (ej. sin conexión, o ya está actualizado)
-git pull $REMOTE_NAME $GIT_BRANCH --ff-only || true
+# 4. INTENTAR TRAER Y FUSIONAR CAMBIOS REMOTOS (git pull sin --ff-only)
+echo "🔄 Intentando traer y fusionar cambios remotos (git pull)..."
+# Quitamos --ff-only para permitir que Git cree un merge commit si es necesario y posible
+# Usamos || true para continuar si el pull falla (ej. conflictos reales que requieren intervención manual)
+git pull $REMOTE_NAME $GIT_BRANCH || true
 PULL_EXIT_CODE=$?
 if [ $PULL_EXIT_CODE -ne 0 ]; then
-     echo "   ⚠️ Nota: 'git pull' falló o no pudo hacer fast-forward (código $PULL_EXIT_CODE). Puede haber conflictos locales."
+     echo "   ⚠️ Nota: 'git pull' falló (código $PULL_EXIT_CODE). Puede haber conflictos que requieren resolución manual."
 else
-     echo "   ✔️ Pull completado o ya estaba actualizado."
+     echo "   ✔️ Pull/Merge completado o ya estaba actualizado."
 fi
 
 # 5. Añadir todos los cambios locales (respetando .gitignore)
-echo "➕ Añadiendo cambios locales..."
+echo "➕ Añadiendo cambios locales (si los hay)..."
 git add .
 echo "   ✔️ Cambios añadidos."
 
-# 6. Crear un commit (solo si hay cambios locales)
+# 6. Crear un commit (solo si hay cambios locales nuevos o si hubo un merge)
 echo "📝 Creando commit local..."
-if git diff-index --quiet HEAD --; then
-    echo "   ℹ️ No hay cambios locales para commitear."
-else
+# Verificamos si hay algo en el staging area O si estamos en medio de un merge (que necesita commit)
+if ! git diff-index --quiet HEAD -- || git rev-parse -q --verify MERGE_HEAD; then
     COMMIT_MSG="Auto-commit Pterodactyl: $(date +'%Y-%m-%d %H:%M:%S')"
+    # Si estamos en medio de un merge, el commit lo finalizará.
     git commit -m "$COMMIT_MSG"
-    if [ $? -ne 0 ]; then echo "⚠️ Advertencia: 'git commit' falló."; else echo "   ✔️ Commit local creado: \"$COMMIT_MSG\""; fi
+    if [ $? -ne 0 ]; then
+        echo "⚠️ Advertencia: 'git commit' falló. ¿Hubo un conflicto en el merge que no se resolvió?"
+    else
+        echo "   ✔️ Commit local creado/finalizado: \"$COMMIT_MSG\""
+    fi
+else
+    echo "   ℹ️ No hay cambios locales nuevos para commitear."
 fi
 
 # 7. Subir los cambios al repositorio remoto (HTTPS)
@@ -69,10 +75,10 @@ git push $REMOTE_NAME $GIT_BRANCH || true # || true evita que falle el script
 PUSH_EXIT_CODE=$?
 
 if [ $PUSH_EXIT_CODE -eq 0 ]; then
-     echo "   ✔️ Push completado (o sin cambios nuevos)."
+     echo "   ✔️ Push completado."
 else
-     echo "   ⚠️ Nota: 'git push' falló (código $PUSH_EXIT_CODE) pero el script continuó."
-     echo "      Verifica la URL remota (¿incluye el token?), la conexión, y si la rama '$GIT_BRANCH' existe."
+     echo "   ⚠️ Nota: 'git push' falló (código $PULL_EXIT_CODE) pero el script continuó."
+     echo "      Esto puede pasar si 'git pull' falló debido a conflictos."
 fi
 
 # --- Fin del Proceso ---

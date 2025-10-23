@@ -1,5 +1,5 @@
 // =================================================================
-// BOT DE WHATSAPP AVANZADO - index.js (VERSIÓN FINAL: REGISTRO SÓLO POR COMANDO)
+// BOT DE WHATSAPP AVANZADO - index.js (VERSIÓN FINAL Y COMPLETA, CORREGIDA DE SINTAXIS Y ERRORES DE LÓGICA)
 // =================================================================
 
 require('dotenv').config();
@@ -272,7 +272,7 @@ async function runBot() {
                     groupAdminsCache.set(groupId, new Set(admins.map(jidNormalizedUser)));
                 }
                 console.log(chalk.blue(`📦 Información de ${groupAdminsCache.size} grupos cargada en caché.`));
-s         } catch (e) {
+            } catch (e) {
                 console.error(chalk.red('Error al cargar la información de los grupos:'), e);
             }
         }
@@ -360,7 +360,7 @@ s         } catch (e) {
                 console.log(chalk.green(`[REGISTRO INICIAL] Usuario ${rawPhoneNumber} registrado con IDs.`));
                 user = DB.getUserByPhone(rawPhoneNumber); // Recargamos el objeto
                 ctx.user = user; // Actualizamos el user en el contexto
-content       */
+                */
             }
             // --- FIN REGISTRO/MIGRACIÓN ---
 
@@ -383,29 +383,27 @@ content       */
             if (State.inProgress(chatJid, userJid)) {
                 const st = State.get(chatJid, userJid);
                 const cmd = commands.get(st.flow);
-  s           // Si hay un flujo activo y el comando tiene un manejador de pasos:
+                // Si hay un flujo activo y el comando tiene un manejador de pasos:
                 if (cmd?.handleStepMessage) {
                     // console.log(chalk.yellow(`[FLOW] Procesando paso ${st.step} para flujo: ${st.flow}`)); // SILENCIADO
                     return cmd.handleStepMessage(sock, msg, ctx); // 👈 ¡Retorna aquí!
                 }
             }
 
-            // =================================================================
-            // ✅ *** INICIO DE LA CORRECCIÓN ***
-            // --- Lógica de Protecciones (MOVIDA AQUÍ) ---
-            // Se ejecuta en TODOS los mensajes de grupo, antes de revisar comandos.
+            // =================================================================
+            // ✅ LÓGICA DE PROTECCIÓN (MOVIDA AQUÍ para ejecutarse en TODOS los mensajes)
+            // =================================================================
             if (isGroup) {
                 const protectionResult = await Protection.checkProtections(sock, msg, groupAdminsCache);
                 if (protectionResult.violation) {
                     await Protection.executeAction(sock, msg, protectionResult.type, userJid);
-content             return; // Detiene la ejecución si hay una violación (antilink, antitoxic)
+                    return; // Detiene la ejecución si hay una violación (antilink, antitoxic)
                 }
             }
-            // ✅ *** FIN DE LA CORRECCIÓN ***
-            // =================================================================
-
+            // =================================================================
+            
             // Si el mensaje no tiene el prefijo, lo ignoramos AHORA
-            // (Esto se ejecuta DESPUÉS de las protecciones)
+            // (Esto se ejecuta DESPUÉS de las protecciones)
             if (!text.startsWith(PREFIX)) return;
             // =================================================================
 
@@ -436,9 +434,6 @@ content             return; // Detiene la ejecución si hay una violación
                 }
             }
 
-            // --- Lógica de Protecciones y Admin ---
-            // (El bloque original estaba aquí, ahora está vacío porque lo movimos arriba)
-  
             // 📣 LOG DE EJECUCIÓN CORREGIDO (Usa senderIdForLog)
             console.log(chalk.yellow(`[EJECUTANDO] ${command.name} para ${senderIdForLog}`));
             await command.execute(sock, msg, args, ctx);
@@ -454,7 +449,7 @@ content             return; // Detiene la ejecución si hay una violación
             // Actualizar caché de admins si es necesario
             try {
                 const groupMeta = await sock.groupMetadata(id);
-s               const admins = groupMeta.participants.filter(p => p.admin).map(p => p.id);
+                const admins = groupMeta.participants.filter(p => p.admin).map(p => p.id);
                 groupAdminsCache.set(id, new Set(admins.map(jidNormalizedUser)));
             } catch (err) {
                  console.error(chalk.red(`❌ Error actualizando admins para grupo ${id}:`), err);
@@ -462,11 +457,11 @@ s               const admins = groupMeta.participants.filter(p => p.admin
         }
         try {
             const chatSettings = DB.getChatSettings(id);
-content       if (!chatSettings?.welcome) return;
+            if (!chatSettings?.welcome) return;
             const metadata = await sock.groupMetadata(id);
             for (const participant of participants) {
                 const userMention = `@${participant.split('@')[0]}`;
-content         const groupName = metadata.subject;
+                const groupName = metadata.subject;
                 if (action === 'add') {
                     await sock.sendMessage(id, { text: `👋 ¡Bienvenido/a ${userMention} al grupo *${groupName}*!`, mentions: [participant] });
                 } else if (action === 'remove') {
@@ -475,7 +470,7 @@ content         const groupName = metadata.subject;
             }
         } catch (err) {
              console.error(chalk.red('❌ Error en group-participants.update (welcome/goodbye):'), err);
-s     }
+        }
     });
 
     sock.ev.on('call', async (call) => {
@@ -485,13 +480,21 @@ s     }
             if (!botSettings?.anticall) return;
             for (const c of call) {
                 if (c.status === 'offer') {
+                    // ✅ CORRECCIÓN: Intentamos obtener el JID de usuario (@s.whatsapp.net) para el bloqueo
+                    const callerJid = c.from.includes('@lid') 
+                      ? `${c.from.split('@')[0]}@s.whatsapp.net` // Forzar el JID de usuario
+                      : c.from; 
+
                     await sock.sendMessage(c.from, { text: `🚫 Las llamadas no están permitidas y serás bloqueado.` });
-                    await sock.updateBlockStatus(c.from, 'block');
-                    console.log(chalk.red(`[ANTICALL] Usuario ${c.from} bloqueado por llamar.`));
+                    
+                    // Usamos el JID corregido para el bloqueo
+                    await sock.updateBlockStatus(callerJid, 'block'); 
+                    
+                    console.log(chalk.red(`[ANTICALL] Usuario ${callerJid} bloqueado por llamar.`));
                 }
             }
         } catch (err) {
-  EOT_       console.error(chalk.red('❌ Error en el evento call:'), err);
+            console.error(chalk.red('❌ Error en el evento call:'), err);
         }
     });
 
@@ -508,7 +511,7 @@ s     }
                 //await sock.logout(); // Descomentar si usas logout
                 await sock.end(undefined); // Usar end para cerrar la conexión
                 console.log(chalk.green('[BOT] Conexión cerrada.'));
-nd}         }
+            }
             process.exit(0); // Cierra el proceso
         } catch (err) {
             console.error(chalk.red('[BOT] Error durante el apagado elegante:'), err);
@@ -524,5 +527,5 @@ nd}         }
 
 runBot().catch(err => {
     console.error(chalk.red('❌ Error fatal al inicializar el bot:'), err);
-  g   process.exit(1);
+    process.exit(1);
 });
