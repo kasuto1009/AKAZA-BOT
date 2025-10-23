@@ -5,7 +5,7 @@
 # --- ¡¡¡CONFIGURA ESTO!!! ---
 GIT_USER_EMAIL="kirigayakasuto422@gmail.com" # Reemplaza con tu email de GitHub/GitLab
 GIT_USER_NAME="kasuto1009"  # Reemplaza con tu nombre de usuario de Git
-GIT_BRANCH="main"                  # Cambia 'main' si tu rama es otra (ej: master)
+GIT_BRANCH="master"                  # Cambia 'main' si tu rama es otra (ej: master)
 REMOTE_NAME="origin"
 # ---------------------------
 
