@@ -8,7 +8,7 @@ GIT_USER_NAME="kasuto1009"
 GIT_BRANCH="main"                  # Confirmado desde GitHub que es 'main'.
 REMOTE_NAME="origin"
 # Ruta ABSOLUTA a tu clave privada SSH (la encontramos en /root/.ssh/)
-SSH_PRIVATE_KEY="/root/.ssh/akaza_bot_deploy_key"
+SSH_PRIVATE_KEY="/home/container/.ssh/akaza_bot_deploy_key"
 # ---------------------------
 
 # Directorio del repositorio
