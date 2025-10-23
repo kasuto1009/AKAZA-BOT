@@ -2,18 +2,22 @@
 
 # --- Script para subir actualizaciones del bot a Git ---
 
-# --- ¡¡¡CONFIGURA ESTO!!! ---
-GIT_USER_EMAIL="kirigayakasuto422@gmail.com" # Reemplaza con tu email de GitHub/GitLab
-GIT_USER_NAME="kasuto1009"  # Reemplaza con tu nombre de usuario de Git
-GIT_BRANCH="main"                  # ¡¡YA LO CAMBIAMOS A MASTER!! Verifica si es correcto.
+# --- CONFIGURACIÓN ---
+GIT_USER_EMAIL="kirigayakasuto422@gmail.com"
+GIT_USER_NAME="kasuto1009"
+GIT_BRANCH="main"                  # Confirmado desde GitHub que es 'main'.
 REMOTE_NAME="origin"
+# Ruta ABSOLUTA a tu clave privada SSH (la encontramos en /root/.ssh/)
+SSH_PRIVATE_KEY="/root/.ssh/akaza_bot_deploy_key"
 # ---------------------------
 
-# Directorio del repositorio (la ruta que dio el error)
-REPO_DIR="/var/lib/pterodactyl/volumes/4460a315-e973-4a4e-a8da-19f3104dbcf8" # Ajusta si es necesario, pero probablemente sea esta
+# Directorio del repositorio
+REPO_DIR="/home/container" # Ruta estándar en Pterodactyl
 
 echo "🚀 Iniciando script de actualización Git..."
 echo "-----------------------------------------"
+echo "ℹ️ Ejecutando como usuario: $(whoami)"
+echo "🏠 Directorio HOME: $HOME"
 
 # 0. Verificar si Git está instalado
 if ! command -v git &> /dev/null
@@ -23,18 +27,17 @@ then
 fi
 echo "✅ Git encontrado."
 
-# 1. Marcar el directorio como seguro (SOLUCIÓN al 'dubious ownership')
-# Usamos --global porque el script podría correr como diferentes usuarios (root vs container)
-# y necesitamos que ambos confíen en el directorio.
+# 1. Marcar el directorio como seguro
 echo "🛡️ Marcando directorio como seguro para Git..."
-git config --global --add safe.directory "$REPO_DIR"
+git config --global --add safe.directory "$REPO_DIR" || true
+# Ya no necesitamos --local si --global funciona
 echo "   ✔️ Directorio marcado como seguro."
 
-# 2. Ir al directorio del script
-cd "$(dirname "$0")" || exit 1
+# 2. Ir al directorio del script/repositorio
+cd "$REPO_DIR" || exit 1
 echo "📁 Directorio actual: $(pwd)"
 
-# 3. Configurar identidad de Git LOCALMENTE (mejor que global si corre como container)
+# 3. Configurar identidad de Git LOCALMENTE
 echo "👤 Configurando identidad Git localmente..."
 git config user.email "$GIT_USER_EMAIL"
 git config user.name "$GIT_USER_NAME"
@@ -46,9 +49,9 @@ echo "➕ Añadiendo cambios..."
 git add .
 echo "   ✔️ Cambios añadidos."
 
-# 5. Crear un commit (solo si hay cambios) - Usando comando compatible
+# 5. Crear un commit (solo si hay cambios)
 echo "📝 Creando commit..."
-# Alternativa a 'git diff --staged --quiet' para versiones antiguas de Git
+# Usamos comando compatible con versiones antiguas de Git
 if git diff-index --quiet HEAD --; then
     echo "   ℹ️ No hay cambios para commitear."
 else
@@ -61,16 +64,24 @@ else
     fi
 fi
 
-# 6. Subir los cambios al repositorio remoto
-echo "📤 Subiendo cambios a '$REMOTE_NAME/$GIT_BRANCH'..."
-git push $REMOTE_NAME $GIT_BRANCH || true # || true evita que falle el script
-# Verificamos el código de salida del push para dar un mensaje más claro
-PUSH_EXIT_CODE=$?
+# 6. VERIFICAR PERMISOS SSH JUSTO ANTES DEL PUSH
+echo "🔍 Verificando permisos/dueño de la clave SSH antes del push:"
+ls -la "$SSH_PRIVATE_KEY" || echo "   ⚠️ No se pudo encontrar o listar la clave $SSH_PRIVATE_KEY"
+
+# 7. Subir los cambios al repositorio remoto - FORZANDO LA CLAVE SSH
+echo "📤 Subiendo cambios a '$REMOTE_NAME/$GIT_BRANCH' usando clave explícita..."
+# Usamos GIT_SSH_COMMAND para decirle a Git qué comando SSH usar
+GIT_SSH_COMMAND="ssh -i $SSH_PRIVATE_KEY -o IdentitiesOnly=yes" git push $REMOTE_NAME $GIT_BRANCH || true
+PUSH_EXIT_CODE=$? # Guardamos el código de salida del comando push
+
 if [ $PUSH_EXIT_CODE -eq 0 ]; then
      echo "   ✔️ Push completado (o sin cambios nuevos)."
 else
      echo "   ⚠️ Nota: 'git push' falló (código $PUSH_EXIT_CODE) pero el script continuó."
-     echo "      Verifica la conexión, la autenticación SSH (Deploy Key), y si la rama remota '$GIT_BRANCH' existe."
+     echo "      Revisa el error anterior. ¿Sigue siendo 'Permission denied' o 'uid 999'?"
+     # Añadimos una prueba de conexión SSH con la clave explícita para diagnóstico
+     echo "   🔍 Probando conexión SSH directa con la clave..."
+     ssh -T -i $SSH_PRIVATE_KEY -o IdentitiesOnly=yes git@github.com
 fi
 
 # --- Fin del Proceso ---
