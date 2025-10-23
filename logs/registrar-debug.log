@@ -1,0 +1,3 @@
+[2025-09-20T19:09:19.101Z] [REGISTRO][IN] {"from":"593962647512@s.whatsapp.net","step":0,"rawBody":"!perfil","timestamp":"2025-09-20T19:09:19.101Z"}
+[2025-09-20T19:09:19.102Z] [askNext] step 1 user 593962647512@s.whatsapp.net
+[2025-09-20T19:09:19.735Z] [REGISTRO][IN] {"from":"593962647512@s.whatsapp.net","step":1,"rawBody":"","timestamp":"2025-09-20T19:09:19.735Z"}
