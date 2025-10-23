@@ -36,22 +36,34 @@ git config user.name "$GIT_USER_NAME"
 git config core.autocrlf input
 echo "   ✔️ Identidad configurada para este repositorio."
 
-# 4. Añadir todos los cambios (respetando .gitignore)
-echo "➕ Añadiendo cambios..."
+# 4. INTENTAR TRAER CAMBIOS REMOTOS PRIMERO (git pull)
+echo "🔄 Intentando traer cambios remotos (git pull)..."
+# Usamos --ff-only para evitar merges automáticos complicados si hay conflictos locales no commiteados
+# Usamos || true para continuar si el pull falla (ej. sin conexión, o ya está actualizado)
+git pull $REMOTE_NAME $GIT_BRANCH --ff-only || true
+PULL_EXIT_CODE=$?
+if [ $PULL_EXIT_CODE -ne 0 ]; then
+     echo "   ⚠️ Nota: 'git pull' falló o no pudo hacer fast-forward (código $PULL_EXIT_CODE). Puede haber conflictos locales."
+else
+     echo "   ✔️ Pull completado o ya estaba actualizado."
+fi
+
+# 5. Añadir todos los cambios locales (respetando .gitignore)
+echo "➕ Añadiendo cambios locales..."
 git add .
 echo "   ✔️ Cambios añadidos."
 
-# 5. Crear un commit (solo si hay cambios)
-echo "📝 Creando commit..."
+# 6. Crear un commit (solo si hay cambios locales)
+echo "📝 Creando commit local..."
 if git diff-index --quiet HEAD --; then
-    echo "   ℹ️ No hay cambios para commitear."
+    echo "   ℹ️ No hay cambios locales para commitear."
 else
     COMMIT_MSG="Auto-commit Pterodactyl: $(date +'%Y-%m-%d %H:%M:%S')"
     git commit -m "$COMMIT_MSG"
-    if [ $? -ne 0 ]; then echo "⚠️ Advertencia: 'git commit' falló."; else echo "   ✔️ Commit creado: \"$COMMIT_MSG\""; fi
+    if [ $? -ne 0 ]; then echo "⚠️ Advertencia: 'git commit' falló."; else echo "   ✔️ Commit local creado: \"$COMMIT_MSG\""; fi
 fi
 
-# 6. Subir los cambios al repositorio remoto (HTTPS)
+# 7. Subir los cambios al repositorio remoto (HTTPS)
 echo "📤 Subiendo cambios a '$REMOTE_NAME/$GIT_BRANCH' (HTTPS)..."
 git push $REMOTE_NAME $GIT_BRANCH || true # || true evita que falle el script
 PUSH_EXIT_CODE=$?
