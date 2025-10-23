@@ -1,5 +1,5 @@
 // =================================================================
-// BOT DE WHATSAPP AVANZADO - index.js (VERSIÓN CORREGIDA)
+// BOT DE WHATSAPP AVANZADO - index.js (VERSIÓN FINAL: REGISTRO SÓLO POR COMANDO)
 // =================================================================
 
 require('dotenv').config();
@@ -272,7 +272,7 @@ async function runBot() {
                     groupAdminsCache.set(groupId, new Set(admins.map(jidNormalizedUser)));
                 }
                 console.log(chalk.blue(`📦 Información de ${groupAdminsCache.size} grupos cargada en caché.`));
-            } catch (e) {
+s         } catch (e) {
                 console.error(chalk.red('Error al cargar la información de los grupos:'), e);
             }
         }
@@ -316,7 +316,7 @@ async function runBot() {
                     }
                 } catch (metaError) {
                     return;
-  _EOT_             }
+                }
             }
 
             // 🚨 LIMPIEZA FINAL: rawPhoneNumber debe ser la llave limpia para la DB
@@ -346,7 +346,7 @@ async function runBot() {
                 let newWalletId;
                 let newPurchaseId;
                 do { newWalletId = Utils.generateWalletId(); } while (DB.getUserByWalletId(newWalletId));
-section?           do { newPurchaseId = Utils.generatePurchaseId(); } while (DB.getUserByPurchaseId(newPurchaseId));
+                do { newPurchaseId = Utils.generatePurchaseId(); } while (DB.getUserByPurchaseId(newPurchaseId));
 
                 const newUser = {
                     user_phone: rawPhoneNumber,
@@ -360,7 +360,7 @@ section?           do { newPurchaseId = Utils.generatePurchaseId(); } while
                 console.log(chalk.green(`[REGISTRO INICIAL] Usuario ${rawPhoneNumber} registrado con IDs.`));
                 user = DB.getUserByPhone(rawPhoneNumber); // Recargamos el objeto
                 ctx.user = user; // Actualizamos el user en el contexto
-section?           */
+content       */
             }
             // --- FIN REGISTRO/MIGRACIÓN ---
 
@@ -375,7 +375,7 @@ section?           */
             const senderType = isGroup ? chalk.green('[GRUPO]') : chalk.blue('[PRIVADO]');
             if (text.length > 0) {
                 console.log(`${senderType} ${chalk.yellow(senderIdForLog)}: ${chalk.white(text)}`);
-Indentation-based case:         }
+            }
 
             // =================================================================
             // 🔥 MANEJO CRÍTICO DEL ESTADO: PROCESAR RESPUESTAS DE FLUJO PRIMERO
@@ -383,7 +383,7 @@ Indentation-based case:         }
             if (State.inProgress(chatJid, userJid)) {
                 const st = State.get(chatJid, userJid);
                 const cmd = commands.get(st.flow);
-  sSi,           // Si hay un flujo activo y el comando tiene un manejador de pasos:
+  s           // Si hay un flujo activo y el comando tiene un manejador de pasos:
                 if (cmd?.handleStepMessage) {
                     // console.log(chalk.yellow(`[FLOW] Procesando paso ${st.step} para flujo: ${st.flow}`)); // SILENCIADO
                     return cmd.handleStepMessage(sock, msg, ctx); // 👈 ¡Retorna aquí!
@@ -398,12 +398,11 @@ Indentation-based case:         }
                 const protectionResult = await Protection.checkProtections(sock, msg, groupAdminsCache);
                 if (protectionResult.violation) {
                     await Protection.executeAction(sock, msg, protectionResult.type, userJid);
-                    return; // Detiene la ejecución si hay una violación (antilink, antitoxic)
+content             return; // Detiene la ejecución si hay una violación (antilink, antitoxic)
                 }
             }
             // ✅ *** FIN DE LA CORRECCIÓN ***
             // =================================================================
-
 
             // Si el mensaje no tiene el prefijo, lo ignoramos AHORA
             // (Esto se ejecuta DESPUÉS de las protecciones)
@@ -446,7 +445,7 @@ Indentation-based case:         }
 
         } catch (err) {
             console.error(chalk.red('❌ Error en messages.upsert:'), err);
-section?     }
+        }
     });
 
     sock.ev.on('group-participants.update', async (event) => {
@@ -455,7 +454,7 @@ section?     }
             // Actualizar caché de admins si es necesario
             try {
                 const groupMeta = await sock.groupMetadata(id);
-                const admins = groupMeta.participants.filter(p => p.admin).map(p => p.id);
+s               const admins = groupMeta.participants.filter(p => p.admin).map(p => p.id);
                 groupAdminsCache.set(id, new Set(admins.map(jidNormalizedUser)));
             } catch (err) {
                  console.error(chalk.red(`❌ Error actualizando admins para grupo ${id}:`), err);
@@ -463,20 +462,20 @@ section?     }
         }
         try {
             const chatSettings = DB.getChatSettings(id);
-            if (!chatSettings?.welcome) return;
+content       if (!chatSettings?.welcome) return;
             const metadata = await sock.groupMetadata(id);
             for (const participant of participants) {
                 const userMention = `@${participant.split('@')[0]}`;
-                const groupName = metadata.subject;
+content         const groupName = metadata.subject;
                 if (action === 'add') {
                     await sock.sendMessage(id, { text: `👋 ¡Bienvenido/a ${userMention} al grupo *${groupName}*!`, mentions: [participant] });
-m}             } else if (action === 'remove') {
+                } else if (action === 'remove') {
                     await sock.sendMessage(id, { text: `👋 Adiós ${userMention}, te extrañaremos.`, mentions: [participant] });
                 }
             }
         } catch (err) {
              console.error(chalk.red('❌ Error en group-participants.update (welcome/goodbye):'), err);
-        }
+s     }
     });
 
     sock.ev.on('call', async (call) => {
@@ -485,14 +484,14 @@ m}             } else if (action === 'remove') {
             const botSettings = DB.getBotSettings(botJid);
             if (!botSettings?.anticall) return;
             for (const c of call) {
-i}             if (c.status === 'offer') {
+                if (c.status === 'offer') {
                     await sock.sendMessage(c.from, { text: `🚫 Las llamadas no están permitidas y serás bloqueado.` });
                     await sock.updateBlockStatus(c.from, 'block');
                     console.log(chalk.red(`[ANTICALL] Usuario ${c.from} bloqueado por llamar.`));
-section?             }
+                }
             }
         } catch (err) {
-            console.error(chalk.red('❌ Error en el evento call:'), err);
+  EOT_       console.error(chalk.red('❌ Error en el evento call:'), err);
         }
     });
 
@@ -518,12 +517,12 @@ nd}         }
     }
 
     process.on('SIGINT', () => gracefulShutdown('SIGINT')); // Ctrl+C
-s}   process.on('SIGTERM', () => gracefulShutdown('SIGTERM')); // Señal "Stop" de Pterodactyl
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM')); // Señal "Stop" de Pterodactyl
     // --- FIN MANEJO DE APAGADO ELEGANTE ---
 
 } // Fin de runBot()
 
 runBot().catch(err => {
     console.error(chalk.red('❌ Error fatal al inicializar el bot:'), err);
-    process.exit(1);
+  g   process.exit(1);
 });
