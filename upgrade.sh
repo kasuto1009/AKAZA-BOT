@@ -34,12 +34,13 @@ echo "👤 Configurando identidad y estrategia de pull Git localmente..."
 git config user.email "$GIT_USER_EMAIL"
 git config user.name "$GIT_USER_NAME"
 git config core.autocrlf input
-git config pull.rebase false # <--- AÑADIR ESTA LÍNEA (Usa merge por defecto)
+git config pull.rebase false # Usa merge por defecto
 echo "   ✔️ Identidad y estrategia de pull configuradas para este repositorio."
 
-# 4. INTENTAR TRAER Y FUSIONAR CAMBIOS REMOTOS (git pull)
-echo "🔄 Intentando traer y fusionar cambios remotos (git pull)..."
-git pull $REMOTE_NAME $GIT_BRANCH || true # Permitir merge automático
+# 4. INTENTAR TRAER Y FUSIONAR CAMBIOS REMOTOS (PERMITIENDO HISTORIAS NO RELACIONADAS)
+echo "🔄 Intentando traer y fusionar cambios remotos (git pull --allow-unrelated-histories)..."
+# Añadimos --allow-unrelated-histories para la primera sincronización
+git pull $REMOTE_NAME $GIT_BRANCH --allow-unrelated-histories || true
 PULL_EXIT_CODE=$?
 if [ $PULL_EXIT_CODE -ne 0 ]; then
      echo "   ⚠️ Nota: 'git pull' falló (código $PULL_EXIT_CODE). Puede haber conflictos que requieren resolución manual."
@@ -56,8 +57,9 @@ echo "   ✔️ Cambios añadidos."
 echo "📝 Creando commit local..."
 if ! git diff-index --quiet HEAD -- || git rev-parse -q --verify MERGE_HEAD; then
     COMMIT_MSG="Auto-commit Pterodactyl: $(date +'%Y-%m-%d %H:%M:%S')"
+    # Intentamos commitear. Si falla por conflicto, el script continuará pero el push fallará.
     git commit -m "$COMMIT_MSG"
-    if [ $? -ne 0 ]; then echo "⚠️ Advertencia: 'git commit' falló."; else echo "   ✔️ Commit local creado/finalizado: \"$COMMIT_MSG\""; fi
+    if [ $? -ne 0 ]; then echo "⚠️ Advertencia: 'git commit' falló. ¿Hubo un conflicto en el merge que no se resolvió?"; else echo "   ✔️ Commit local creado/finalizado: \"$COMMIT_MSG\""; fi
 else
     echo "   ℹ️ No hay cambios locales nuevos para commitear."
 fi
